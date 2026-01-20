@@ -4,8 +4,10 @@
   --muted: rgba(11,18,32,.70);
   --shadow: 0 16px 40px rgba(11,18,32,.10);
 
-  --accent: #0b1220;
-  --accent2: #0b1220;
+  /* Brand */
+  --brand: #0b57ff;
+  --brand-2: #083bbd;
+  --ink: #0b1220;
 
   --radius: 18px;
   --max: 1120px;
@@ -15,15 +17,49 @@
 *{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
 
+body, button, input, textarea{ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
 body{
   margin: 0;
   font-family: var(--font);
   color: var(--text);
+  line-height: 1.55;
   background:
     radial-gradient(1200px 700px at 60% -10%, rgba(11,87,255,.14) 0%, rgba(11,87,255,0) 55%),
     radial-gradient(900px 600px at 20% 0%, rgba(8,59,189,.10) 0%, rgba(8,59,189,0) 55%),
     var(--bg);
 }
+
+/* Melhor experiência com header sticky ao navegar por âncoras */
+section[id]{ scroll-margin-top: 92px; }
+
+/* Acessibilidade */
+:focus-visible{
+  outline: 3px solid rgba(11,87,255,.45);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+.skip-link{
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.95);
+  border: 1px solid rgba(11,18,32,.12);
+  box-shadow: 0 12px 34px rgba(11,18,32,.14);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 800;
+  transform: translateY(-140%);
+  transition: transform .15s ease;
+  z-index: 999;
+}
+
+.skip-link:focus{ transform: translateY(0); }
+
+
 
 .container{
   max-width: var(--max);
@@ -104,7 +140,7 @@ body{
 
 .nav a.active{
   opacity: 1;
-  color: var(--accent);
+  color: var(--brand);
   text-decoration: underline;
   text-underline-offset: 8px;
 }
@@ -112,9 +148,11 @@ body{
 .nav-cta{
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(11,87,255,.22);
-  background: rgba(11,87,255,.06);
+  border: 1px solid rgba(11,87,255,.28);
+  background: rgba(11,87,255,.08);
 }
+
+.nav-cta:hover{ background: rgba(11,87,255,.12); }
 
 /* Mobile menu */
 .menu-btn{
@@ -133,7 +171,12 @@ body{
   margin: 5px auto;
   background: var(--text);
   border-radius: 2px;
+  transition: transform .15s ease, opacity .15s ease;
 }
+
+.menu-btn.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.menu-btn.open span:nth-child(2){ opacity: 0; }
+.menu-btn.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
 /* HERO */
 .hero{ padding-top: 58px; }
@@ -154,7 +197,7 @@ body{
   padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid rgba(11,87,255,.22);
-  background: rgba(11,87,255,.06);
+  background: rgba(11,87,255,.07);
   color: rgba(11,18,32,.88);
   font-weight: 800;
   letter-spacing: .2px;
@@ -196,7 +239,7 @@ body{
 
 .section-head.center{ text-align: center; }
 
-.accent{ color: var(--accent2); }
+.accent{ color: var(--brand-2); }
 
 /* Cards */
 .card{
@@ -205,6 +248,12 @@ body{
   background: rgba(255,255,255,.78);
   box-shadow: var(--shadow);
   padding: 18px;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.card:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 18px 48px rgba(11,18,32,.12);
 }
 
 /* Grids */
@@ -252,7 +301,7 @@ body{
   font-weight: 900;
   font-size: 18px;
   margin-bottom: 8px;
-  color: var(--accent2);
+  color: var(--brand-2);
 }
 
 /* DEMO card */
@@ -269,7 +318,7 @@ body{
   text-align: center;
   font-size: 22px;
   letter-spacing: -0.2px;
-  color: var(--accent2);
+  color: var(--brand-2);
 }
 
 .portfolio-desc{
@@ -318,7 +367,7 @@ body{
   border-radius: 999px;
   font-weight: 900;
   font-size: 12px;
-  color: var(--accent2);
+  color: var(--brand-2);
   border: 1px solid rgba(11,87,255,.35);
   background: rgba(255,255,255,.88);
   backdrop-filter: blur(6px);
@@ -361,7 +410,7 @@ body{
   display: grid;
   place-items: center;
   font-weight: 1000;
-  color: var(--accent2);
+  color: var(--brand-2);
   border: 1px solid rgba(11,87,255,.25);
   background: rgba(11,87,255,.08);
 }
@@ -413,9 +462,14 @@ body{
 }
 
 .btn.primary{
-  border-color: rgba(11,87,255,.35);
-  background: linear-gradient(180deg, rgba(11,87,255,.12), rgba(11,87,255,.06));
-  color: var(--accent2);
+  border-color: rgba(11,87,255,.55);
+  background: linear-gradient(180deg, var(--brand), var(--brand-2));
+  color: #ffffff;
+}
+
+.btn.primary:hover{
+  background: linear-gradient(180deg, rgba(11,87,255,.95), rgba(8,59,189,.95));
+  box-shadow: 0 14px 34px rgba(11,87,255,.18);
 }
 
 .btn.full{ width: 100%; }
@@ -436,7 +490,7 @@ body{
 
 .to-top{
   text-decoration: none;
-  color: var(--accent2);
+  color: var(--brand-2);
   font-weight: 900;
 }
 

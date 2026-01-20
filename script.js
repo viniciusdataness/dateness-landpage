@@ -7,6 +7,7 @@ const nav = $("#nav");
 
 function setMenu(open) {
   nav.classList.toggle("open", open);
+  menuBtn?.classList.toggle("open", open);
   menuBtn?.setAttribute("aria-expanded", String(open));
 }
 
@@ -21,6 +22,12 @@ document.addEventListener("click", (e) => {
   if (!nav || !menuBtn) return;
   const clickedInside = nav.contains(e.target) || menuBtn.contains(e.target);
   if (!clickedInside) setMenu(false);
+});
+
+// Fecha menu no ESC (acessibilidade)
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  setMenu(false);
 });
 
 // Ano no footer
@@ -65,6 +72,10 @@ const ioNav = new IntersectionObserver((entries) => {
     if (!entry.isIntersecting) return;
     const id = `#${entry.target.id}`;
     navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === id));
+    navLinks.forEach(a => {
+      const isActive = a.getAttribute("href") === id;
+      a.toggleAttribute("aria-current", isActive);
+    });
   });
 }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
 
